@@ -26,6 +26,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>signup</servlet-name>
+    <servlet-class>SignUpServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>signup</servlet-name>
+    <url-pattern>/signup</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>main</servlet-name>
     <servlet-class>MainServlet</servlet-class>
   </servlet>
