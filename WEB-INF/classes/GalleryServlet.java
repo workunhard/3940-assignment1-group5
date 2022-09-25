@@ -13,14 +13,14 @@ public class GalleryServlet extends HttpServlet {
       }
       response.setContentType("text/html");
       response.setCharacterEncoding("UTF-8");
-      File dir = new File("C:\\tomcat\\webapps\\photogallery\\images");
+      File dir = new File("C:\\tomcat\\webapps\\3940-assignment1-grp5\\images");
       String[] chld = dir.list();
 
     // instead of hardcoding to the first image in the list as done below
     // save search criteria as session variable and use it to filter the files in the above array
     // check if prev or next button pressed and then rotate through the array accordingly
     HttpSession session = request.getSession();
-	String img_src = chld[0]; 
+	String img_src = chld[0];
     String alt_text = "SOME IMAGE";
     PrintWriter out = response.getWriter();
     out.println("<html>");
@@ -29,7 +29,7 @@ public class GalleryServlet extends HttpServlet {
     out.println("<body>");
     out.println("<p id=\"sessionId\"> Current User: " + session.getAttribute("USER_ID"));
     out.println("<div>");
-    out.println("<form action='/photogallery/gallery' method='GET'>");
+    out.println("<form action='/3940-assignment1-grp5/gallery' method='GET'>");
     out.println("<div>");
     out.println("<img id = \"img_src\" src=./images/" + img_src + " alt=" + alt_text + " width=200 height=150>");
     out.println("<div>");
