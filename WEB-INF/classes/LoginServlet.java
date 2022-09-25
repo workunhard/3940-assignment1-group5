@@ -10,37 +10,11 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<html>\n" + "<head><title>" + "Login" + "</title></head>\n" + "<body>\n"
 				+ "<h1 align=\"center\">" + "Login" + "</h1>\n" + "<form action=\"login\" method=\"POST\">\n"
-				+ "Username: <input type=\"text\" name=\"user_id\">\n" + "<br />\n"
+				+ "Username: <input type=\"text\" name=\"user_name\">\n" + "<br />\n"
 				+ "Password: <input type=\"password\" name=\"password\" />\n" + "<br />\n"
 				+ "<input type=\"submit\" value=\"Sign in\" />\n" + "</form>\n"
 				+ "</form>\n" + "<form action=\"signup\" method=\"GET\">\n" +
 				"<input type=\"submit\" value=\"SignUp\" />\n"+ "</body>\n</html\n");
-		Connection con = null;
-		try {
-//			Class.forName("oracle.jdbc.OracleDriver");
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (Exception ex) {
-			System.out.println("Message: " + ex.getMessage ());
-			return;
-		}
-		try {
-			final String URL = "jdbc:mysql://localhost:3306/test";
-			final Properties connectionProperties = new Properties();
-			connectionProperties.put("user", "root");
-			connectionProperties.put("password", "Popcorn");
-			con = DriverManager.getConnection(URL, connectionProperties);
-			Statement addToDB = con.createStatement();
-			addToDB.execute("CREATE TABLE IF NOT EXISTS users (ID raw(16) PRIMARY KEY, UserID varchar(20), Password varchar (20))");
-			Statement stmt = con.createStatement();
-			stmt.execute("CREATE TABLE IF NOT EXISTS photos (ID raw(16) PRIMARY KEY, UserID GUID FOREIGN KEY, filename varchar(20), caption varchar(20), datetaken DATE, picture BLOB)");
-//			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle1");
-//			PreparedStatement preparedStatement = con.prepareStatement("CREATE TABLE IF NOT EXISTS users (ID raw(16) PRIMARY KEY, UserID varchar(20), Password varchar (20))");
-//			preparedStatement.execute();
-//			PreparedStatement stmnt2 = con.prepareStatement("CREATE TABLE IF NOT EXISTS photos (ID raw(16) PRIMARY KEY, UserID GUID FOREIGN KEY, filename varchar(20), caption varchar(20), datetaken DATE, picture BLOB)");
-//			stmnt2.execute();
-		} catch (Exception e) {
-			System.out.println("Message: " + e.getMessage ());
-		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,21 +32,28 @@ public class LoginServlet extends HttpServlet {
 			Connection con = DriverManager.getConnection(URL, connectionProperties);
 			Statement searchDB = con.createStatement();
 			ResultSet rs = searchDB.executeQuery("SELECT * FROM users");
-			String title = "Logged in as: ";
-			String username = request.getParameter("user_id");
+			String username = request.getParameter("user_name");
 			String password = request.getParameter("password");
 			while(rs.next()) {
-				if(rs.getString("UserID").equals(username) && rs.getString("Password").equals(password)) {
+				if(rs.getString("username").equals(username) && rs.getString("password").equals(password)) {
 					HttpSession session = request.getSession(true);
 					session.setAttribute("USER_ID", username);
 					response.setStatus(302);
-					response.sendRedirect("main");
+					getId(response, con, username, session);
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
+	protected static void getId(HttpServletResponse response, Connection con, String username, HttpSession session) throws SQLException, IOException {
+		PreparedStatement retrieveId = con.prepareStatement("select id from users where username=?");
+		retrieveId.setString(1, username);
+		ResultSet resultId = retrieveId.executeQuery();
+		resultId.next();
+		int result = resultId.getInt(1);
+		session.setAttribute("id", result);
+		response.sendRedirect("main");
+	}
 }

@@ -48,7 +48,6 @@ public class FileUploadServlet extends HttpServlet {
            writer.append("</body>\r\n").append("</html>\r\n");
 	   }
     }
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -67,12 +66,12 @@ public class FileUploadServlet extends HttpServlet {
 
         if(formDate.equals("")) formDate = "2020-10-10";
         if(captionName.equals("")) captionName = "No caption"; 
-        filePart.write(System.getProperty("catalina.base") + "/webapps/photogallery/images/" + fileName);
+        filePart.write(System.getProperty("catalina.base") + "/webapps/3940-assignment1-group5/images/" + fileName);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         String topPart = "<!DOCTYPE html><html><body><ul>";
         String bottomPart = "</ul></body></html>";        
-        out.println(topPart+getListing("c:\\tomcat\\webapps\\photogallery\\images")+bottomPart);
+        out.println(topPart+getListing("c:\\tomcat\\webapps\\3940-assignment1-group5\\images")+bottomPart);
     }
     private String getListing(String path) {
      String dirList =  null;
