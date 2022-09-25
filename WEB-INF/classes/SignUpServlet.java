@@ -24,31 +24,27 @@ public class SignUpServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        Connection con = null;
+
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (Exception ex) {
-            System.out.println("Message: " + ex.getMessage ());
-            return;
-        }
-        try {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (Exception ex) {
+                System.out.println("Driver exception: " + ex.getMessage ());
+                return;
+            }
             final String URL = "jdbc:mysql://localhost:3306/test";
-            final Properties connectionProperties = new Properties();
-            connectionProperties.put("user", "root");
-            connectionProperties.put("password", "");
             String username = request.getParameter("user_id");
             String password = request.getParameter("password");
-            con = DriverManager.getConnection(URL, connectionProperties);
+            Connection con = DriverManager.getConnection(URL, "root", "Popcorn");
             Statement addToDB = con.createStatement();
-            addToDB.execute("CREATE TABLE users (ID raw(16) PRIMARY KEY, UserID varchar(20), Password varchar (20))");
             addToDB.execute("INSERT INTO users (UserID , Password ) values ("+ username + " , "+ password +")");
 //            String username = request.getParameter("user_id");
 //            String password = request.getParameter("password");
-//            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle1");
-//            PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO users (UserID , Password ) values (+"+ username+"+ , +"+password+"+)");
-//            preparedStatement.execute();
+//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "system", "oracle1");
+//            PreparedStatement insertUser = con.insertUser("INSERT INTO users (UserID , Password ) values (+"+ username+"+ , +"+password+"+)");
+//            insertUser.execute();
         } catch (Exception e) {
-            response.sendRedirect("login");
+            e.printStackTrace();
         }
     }
 }
