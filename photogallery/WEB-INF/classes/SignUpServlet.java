@@ -18,7 +18,7 @@ public class SignUpServlet extends HttpServlet {
                 + "<h1 align=\"center\">" + "Sign Up" + "</h1>\n" + "<form action=\"signup\" method=\"POST\">\n"
                 + "Username: <input type=\"text\" name=\"user_id\">\n" + "<br />\n"
                 + "Password: <input type=\"password\" name=\"password\" />\n" + "<br />\n"
-                + "<input type=\"submit\" value=\"Sign in\" />\n" + "</form>\n"
+                + "<input type=\"submit\" value=\"Sign up\" />\n" + "</form>\n"
                 + "</form>\n" + "</body>\n</html\n");
     }
 
@@ -26,26 +26,27 @@ public class SignUpServlet extends HttpServlet {
         response.setContentType("text/html");
         Connection con = null;
         try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
             Class.forName("oracle.jdbc.OracleDriver");
         } catch (Exception ex) {
             System.out.println("Message: " + ex.getMessage ());
             return;
         }
         try {
-            final String URL = "jdbc:mysql://localhost:3306/test";
-            final Properties connectionProperties = new Properties();
-            connectionProperties.put("user", "root");
-            connectionProperties.put("password", "Popcorn");
-                        String username = request.getParameter("user_id");
-            String password = request.getParameter("password");
-            con = DriverManager.getConnection(URL, connectionProperties);
-            Statement addToDB = con.createStatement();
-            addToDB.execute("INSERT INTO users (UserID , Password ) values ("+ username + " , "+ password +")");
-//            String username = request.getParameter("user_id");
+//            final String URL = "jdbc:mysql://localhost:3306/test";
+//            final Properties connectionProperties = new Properties();
+//            connectionProperties.put("user", "16045");
+//            connectionProperties.put("password", "Popcorn");
+//                        String username = request.getParameter("user_id");
 //            String password = request.getParameter("password");
-//            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle1");
-//            PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO users (UserID , Password ) values (+"+ username+"+ , +"+password+"+)");
-//            preparedStatement.execute();
+//            con = DriverManager.getConnection(URL, connectionProperties);
+//            Statement addToDB = con.createStatement();
+//            addToDB.execute("INSERT INTO users (UserID , Password ) values ("+ username + " , "+ password +")");
+            String username = request.getParameter("user_id");
+            String password = request.getParameter("password");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
+            PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO users (UserID , Password ) values ("+ username+","+password+")");
+            preparedStatement.executeUpdate();
         } catch (Exception e) {
             response.sendRedirect("login");
         }
