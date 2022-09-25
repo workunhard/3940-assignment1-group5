@@ -29,7 +29,6 @@ public class GalleryServlet extends HttpServlet {
     out.println("<div>");
     out.println("<form action='/photogallery/gallery' method='GET'>");
     out.println("<div>");
-
     out.println("<img id = \"img_src\" src=./images/" + img_src + " alt=" + alt_text + " width=200 height=150>");
     out.println("<div>");
     out.println("<br>");
