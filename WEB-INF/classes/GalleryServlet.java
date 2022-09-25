@@ -19,13 +19,15 @@ public class GalleryServlet extends HttpServlet {
     // instead of hardcoding to the first image in the list as done below
     // save search criteria as session variable and use it to filter the files in the above array
     // check if prev or next button pressed and then rotate through the array accordingly
-
+    HttpSession session = request.getSession();
 	String img_src = chld[0]; 
     String alt_text = "SOME IMAGE";
     PrintWriter out = response.getWriter();
     out.println("<html>");
     out.println("<meta charset='UTF-8'>");
+    out.println("<head><link rel=\"stylesheet\" type=\"text/css\" href=\"css/main.css\"></head>");
     out.println("<body>");
+    out.println("<p id=\"sessionId\"> Current User: " + session.getAttribute("USER_ID"));
     out.println("<div>");
     out.println("<form action='/photogallery/gallery' method='GET'>");
     out.println("<div>");

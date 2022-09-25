@@ -31,10 +31,12 @@ public class FileUploadServlet extends HttpServlet {
            PrintWriter writer = response.getWriter();
                   writer.append("<!DOCTYPE html>\r\n")
                    .append("<html>\r\n")
-                   .append("    <head>\r\n")
-                   .append("        <title>File Upload Form</title>\r\n")
-                   .append("    </head>\r\n")
-                   .append("    <body>\r\n");
+                   .append("<head>\r\n")
+                   .append("<title>File Upload Form</title>\r\n")
+                   .append("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/main.css\">")
+                   .append("</head>\r\n")
+                   .append("<body>\r\n")
+                   .append("<p id=\"sessionId\"> Current User: " + session.getAttribute("USER_ID") + "\r\n");
            writer.append("<h1>Upload file</h1>\r\n");
            writer.append("<form method=\"POST\" action=\"upload\" ")
                    .append("enctype=\"multipart/form-data\">\r\n");

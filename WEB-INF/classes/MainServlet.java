@@ -17,8 +17,8 @@ public class MainServlet extends HttpServlet {
       String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
       String html = docType + "<html>\n" + "<head><title>" + title + "</title>" +
 						"<link rel=\"stylesheet\" type=\"text/css\" href=\"css/main.css\"></head>\n" +
-						"<body bgcolor=\"#f0f0f0\">\n" + "<p id=\"sessionId\"> User ID: " +
-			  			session.getAttribute("id") +
+						"<body bgcolor=\"#f0f0f0\">\n" + "<p id=\"sessionId\"> Current User: " +
+			  			session.getAttribute("USER_ID") +
 			  			"<br><h1 align=\"center\">Logged in as: <span id=\"name\">" + title + "</span></h1>\n"+
 						"<div style=\"text-align: center;\">\n" +
 						"<form action=\"upload\" method=\"GET\">\n" + 
