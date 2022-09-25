@@ -12,11 +12,12 @@ public class SignUpServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.println("<html>\n" + "<head><title>" + "Sign Up" + "</title></head>\n" + "<body>\n"
+        out.println("<html>\n" + "<head><title>" + "Sign Up" + "</title><link rel=\"stylesheet\" type=\"text/css\"\n" +
+                "href=\"css/main.css\"></head>\n<body>\n"
                 + "<h1 align=\"center\">" + "Sign Up" + "</h1>\n" + "<form action=\"signup\" method=\"POST\">\n"
                 + "Username: <input type=\"text\" name=\"user_name\">\n" + "<br />\n"
-                + "Password: <input type=\"password\" name=\"password\" />\n" + "<br />\n"
-                + "<input type=\"submit\" value=\"Sign Up\" />\n" + "</form>\n"
+                + "Password: <input type=\"password\" name=\"password\" />\n" + "<br><br>\n"
+                + "<input id=\"signInBtn\" type=\"submit\" value=\"Sign Up\" />\n" + "</form>\n"
                 + "</form>\n" + "</body>\n</html\n");
     }
 

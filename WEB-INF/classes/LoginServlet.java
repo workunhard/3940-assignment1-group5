@@ -9,13 +9,13 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println("<html>\n" + "<head><title>" + "Login" + "</title><link rel=\"stylesheet\" type=\"text/css\""
-				+ "href=\"css/login.css\"</head>\n" + "<body>\n"
-				+ "<h1 align=\"center\">" + "Login" + "</h1>\n" + "<form action=\"login\" method=\"POST\">\n"
-				+ "Username: <input type=\"text\" name=\"user_name\">\n" + "<br />\n"
-				+ "Password: <input type=\"password\" name=\"password\" />\n" + "<br />\n"
-				+ "<input type=\"submit\" value=\"Sign in\" />\n" + "</form>\n"
-				+ "</form>\n" + "<form action=\"signup\" method=\"GET\">\n" +
-				"<input type=\"submit\" value=\"SignUp\" />\n"+ "</body>\n</html\n");
+				+ "href=\"css/main.css\"></head>\n" + "<body>\n"
+				+ "<h1 align=\"center\">" + "Login" + "</h1>\n<form action=\"login\" method=\"POST\">\n"
+				+ "Username: <input type=\"text\" name=\"user_name\">\n" + "<br>\n"
+				+ "Password: <input type=\"password\" name=\"password\"/>\n" + "<br><br>\n"
+				+ "<input id=\"signInBtn\" type=\"submit\" value=\"Sign In\" />\n" + "</form>\n"
+				+ "</form>\n" + "<p id=\"noAccount\">Not registered?</p>\n<form action=\"signup\" method=\"GET\">\n" +
+				"<input id=\"signUpBtn\" type=\"submit\" value=\"Sign Up\" />\n"+ "</body>\n</html\n");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,6 +41,10 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("USER_ID", username);
 					response.setStatus(302);
 					getId(response, con, username, session);
+				} else {
+					HttpSession session = request.getSession(true);
+					session.setAttribute("error", "Incorrect username/password combo");
+					response.sendRedirect("login");
 				}
 			}
 		} catch (SQLException e) {

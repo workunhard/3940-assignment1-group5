@@ -10,8 +10,38 @@ body {
     font-weight: bold;
 }
 
+#signInBtn {
+    background-color: #52BBE7;
+    border-radius: 5px;
+    padding: 10px 30px;
+    margin: 8px 0;
+    max-width: 30%;
+    font-size: 24px;
+    border-style: solid;
+    transition: all 0.5s;
+}
+#signUpBtn {
+    background-color: #52BBE7;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 8px 0;
+    max-width: 30%;
+    font-size: 24px;
+    border-style: solid;
+    transition: all 0.5s;
+}
+
+#noAccount {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
 span {
     color: #004489;
+}
+
+form {
+    text-align: center;
 }
 
 .mainBtn {
@@ -25,7 +55,7 @@ span {
     transition: all 0.5s;
 }
 
-.mainBtn:hover {
+.mainBtn:hover, #signInBtn:hover, #signUpBtn:hover {
     background-color: white;
     transform: scale(1.2);
     transition: all 0.3s;
