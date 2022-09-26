@@ -36,7 +36,7 @@ public class SignUpServlet extends HttpServlet {
             String password = request.getParameter("password");
             Connection con = DriverManager.getConnection(URL, "root", "Popcorn");
             Statement addToDB = con.createStatement();
-            addToDB.execute("INSERT INTO users (id, username , password ) VALUES (0, "+ username + ", "+ password +")");
+            addToDB.execute("INSERT INTO users (id, username , password ) VALUES (0, \'"+ username + "\', \'"+ password +"\')");
 
             // Create session
             HttpSession session = request.getSession();
@@ -46,6 +46,7 @@ public class SignUpServlet extends HttpServlet {
 
             // Create session variable for associated id (reference to uploaded images)
             LoginServlet.getId(response, con, username, session);
+            response.sendRedirect("main");
 
         } catch (Exception e) {
             e.printStackTrace();
