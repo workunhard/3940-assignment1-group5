@@ -107,7 +107,7 @@ public class GalleryServlet extends HttpServlet {
        final String URL = "jdbc:mysql://localhost:3306/test";
        final Properties connectionProperties = new Properties();
        connectionProperties.put("user", "root");
-       connectionProperties.put("password", "Popcorn");
+       connectionProperties.put("password", "junkfoodnight");
        try{
            Connection con = DriverManager.getConnection(URL, connectionProperties);
            Statement searchDB = con.createStatement();
