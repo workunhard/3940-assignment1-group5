@@ -50,15 +50,15 @@ public class GalleryServlet extends HttpServlet {
           e.printStackTrace();
       }
       int position = (Integer) session.getAttribute("position");
-
-      if(session.getAttribute("caption") != "" || session.getAttribute("date") != "") {
-          for(int x = 0; x < photos.size(); x++) {
-//            if(captions.get(x).equals(session.getAttribute("caption").toString()) || dates.get(x).equals(session.getAttribute("date").toString())) {
-//                position = x;
-//            }
-          }
-      }
-
+        if(session.getAttribute("search")!= null) {
+            if(session.getAttribute("caption") != null || session.getAttribute("date") != null) {
+                for(int x = 0; x < photos.size(); x++) {
+                    if(captions.get(x).equals(session.getAttribute("caption").toString()) || dates.get(x).equals(session.getAttribute("date").toString())) {
+                        position = x;
+                    }
+                }
+            }
+        }
       if(position >= photos.size()) {
             position = 0;
       } else if(position < 0) {
@@ -93,6 +93,7 @@ public class GalleryServlet extends HttpServlet {
     out.println("</form>");
     out.println("</body></html>");
     out.close();
+    session.removeAttribute("search");
    }
 
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

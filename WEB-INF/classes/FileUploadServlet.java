@@ -96,6 +96,7 @@ public class FileUploadServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        response.sendRedirect("main");
     }
     private String getListing(String path) {
         System.out.println(path);

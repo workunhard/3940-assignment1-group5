@@ -49,6 +49,7 @@ System.out.println("?????doPost Called???????????????");
 				date = "";
 			session.setAttribute("caption", caption);
 			session.setAttribute("date", date);
+			session.setAttribute("search", "true");
 			response.sendRedirect("gallery");
 			
 		}
