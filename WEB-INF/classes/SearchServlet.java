@@ -47,6 +47,8 @@ System.out.println("?????doPost Called???????????????");
 			String date = request.getParameter("date");
 			if (date.equals("yyyy-mm-dd"))
 				date = "";
+			session.setAttribute("caption", caption);
+			session.setAttribute("date", date);
 			response.sendRedirect("gallery");
 			
 		}

@@ -1,4 +1,6 @@
 import java.io.*;
+import java.sql.*;
+import java.util.Properties;
 import javax.servlet.*;
 import javax.servlet.http.*;
 public class GalleryServlet extends HttpServlet {
@@ -20,7 +22,35 @@ public class GalleryServlet extends HttpServlet {
     // save search criteria as session variable and use it to filter the files in the above array
     // check if prev or next button pressed and then rotate through the array accordingly
     HttpSession session = request.getSession();
-	String img_src = chld[0];
+    String filename ="";
+      try {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+      } catch (ClassNotFoundException e) {
+          e.printStackTrace();
+      }
+      final String URL = "jdbc:mysql://localhost:3306/test";
+      final Properties connectionProperties = new Properties();
+      connectionProperties.put("user", "root");
+      connectionProperties.put("password", "");
+      try{
+          Connection con = DriverManager.getConnection(URL, connectionProperties);
+          Statement searchDB = con.createStatement();
+          ResultSet rs = searchDB.executeQuery("SELECT * FROM photos");
+          while(rs.next()) {
+              if(rs.getString("caption").equals(session.getAttribute("caption")) || rs.getObject("datetaken").toString().equals(session.getAttribute("date"))) {
+                  filename = rs.getString("filename");
+              }
+          }
+      } catch (SQLException e) {
+          e.printStackTrace();
+      }
+      String img_src;
+      if(filename.equals("")) {
+           img_src = chld[0];
+      } else {
+             img_src = filename;
+      }
+
     String alt_text = "SOME IMAGE";
     PrintWriter out = response.getWriter();
     out.println("<html>");

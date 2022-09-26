@@ -5,6 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -58,7 +62,7 @@ public class FileUploadServlet extends HttpServlet {
         Part filePart = request.getPart("fileName");
         String captionName = request.getParameter("caption");
         String formDate = request.getParameter("date");
-        String fileName = filePart.getSubmittedFileName();
+        String fileName = getSubmittedFileName(filePart);
 
         if(fileName.equals("")){
             response.setStatus(302);
@@ -74,6 +78,24 @@ public class FileUploadServlet extends HttpServlet {
         String topPart = "<!DOCTYPE html><html><body><ul>";
         String bottomPart = "</ul></body></html>";        
         out.println(topPart+getListing("c:\\tomcat\\webapps\\3940-assignment1-group5\\images")+bottomPart);
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (Exception ex) {
+            System.out.println("Driver exception: " + ex.getMessage());
+            return;
+        }
+        try {
+            // Connect to DB and insert new user
+            final String URL = "jdbc:mysql://localhost:3306/test";
+            HttpSession session = request.getSession(true);
+            String username = session.getAttribute("id").toString();
+            Connection con = DriverManager.getConnection(URL, "root", "Popcorn");
+            Statement addToDB = con.createStatement();
+            addToDB.execute("INSERT INTO photos (UserID, filename , caption, datetaken) VALUES (0, " + username + ", " + fileName + ","+captionName+","+formDate+")");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     private String getListing(String path) {
      String dirList =  null;
@@ -86,8 +108,16 @@ public class FileUploadServlet extends HttpServlet {
             dirList += "<li>"+chld[i]+"</li>";      
       }
       return dirList;
-    } 
-
+    }
+    private static String getSubmittedFileName(Part part) {
+        for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
+            }
+        }
+        return null;
+    }
     
 	private boolean isLoggedIn(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
