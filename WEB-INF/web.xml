@@ -66,6 +66,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>galleryNextPrev</servlet-name>
+    <servlet-class>GalleryNextPrev</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>galleryNextPrev</servlet-name>
+    <url-pattern>/gallerynextprev</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>search</servlet-name>
     <servlet-class>SearchServlet</servlet-class>
   </servlet>
