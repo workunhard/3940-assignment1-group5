@@ -35,7 +35,7 @@ public class GalleryServlet extends HttpServlet {
       try{
           Connection con = DriverManager.getConnection(URL, connectionProperties);
           Statement searchDB = con.createStatement();
-          ResultSet rs = searchDB.executeQuery("SELECT filename FROM photos WHERE UserID = " + session.getAttribute("id") + "");
+          ResultSet rs = searchDB.executeQuery("SELECT filename, caption, datetime FROM photos WHERE UserID = " + session.getAttribute("id") + "");
           while(rs.next()) {
                   photos.add(rs.getString("filename"));
           }
