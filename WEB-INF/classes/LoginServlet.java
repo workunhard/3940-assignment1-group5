@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
 		final Properties connectionProperties = new Properties();
 		connectionProperties.put("user", "root");
 		connectionProperties.put("password", "Popcorn");
+// 		Jaws_DB connectivity if deploying with Heroku:
 //		final String URL = "jdbc:mysql://ceux8kf47jbi8xmk:x1sp0y8iza95oaiv@cwe1u6tjijexv3r6.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/t4ot5pmewuphycfy";
 //		final Properties connectionProperties = new Properties();
 //		connectionProperties.put("user", "ceux8kf47jbi8xmk");
