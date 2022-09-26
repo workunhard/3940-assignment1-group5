@@ -98,7 +98,8 @@ public class FileUploadServlet extends HttpServlet {
         }
     }
     private String getListing(String path) {
-     String dirList =  null;
+        System.out.println(path);
+      String dirList ="";
       File dir = new File(path);
       String[] chld = dir.list();
       for(int i = 0; i < chld.length; i++){
