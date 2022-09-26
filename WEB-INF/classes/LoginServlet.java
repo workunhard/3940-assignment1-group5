@@ -24,6 +24,7 @@ public class LoginServlet extends HttpServlet {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("stack trace called");
 		}
 		final String URL = "jdbc:mysql://localhost:3306/test";
 		final Properties connectionProperties = new Properties();
@@ -43,12 +44,15 @@ public class LoginServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			while(rs.next()) {
 				if(rs.getString("username").equals(username) && rs.getString("password").equals(password)) {
-					HttpSession session = request.getSession(true);
+					HttpSession session = request.getSession();
 					session.setAttribute("USER_ID", username);
 					response.setStatus(302);
 					getId(response, con, username, session);
+					response.sendRedirect("main");
+					return;
 				} else {
 					response.sendRedirect("login");
+					return;
 				}
 			}
 		} catch (SQLException e) {
@@ -63,6 +67,5 @@ public class LoginServlet extends HttpServlet {
 		resultId.next();
 		int result = resultId.getInt(1);
 		session.setAttribute("id", result);
-		response.sendRedirect("main");
 	}
 }
