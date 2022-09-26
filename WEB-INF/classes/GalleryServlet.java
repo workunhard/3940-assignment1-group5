@@ -49,7 +49,16 @@ public class GalleryServlet extends HttpServlet {
       } catch (SQLException e) {
           e.printStackTrace();
       }
-    int position = (Integer) session.getAttribute("position");
+      int position = (Integer) session.getAttribute("position");
+
+      if(session.getAttribute("caption") != "" || session.getAttribute("date") != "") {
+          for(int x = 0; x < photos.size(); x++) {
+//            if(captions.get(x).equals(session.getAttribute("caption").toString()) || dates.get(x).equals(session.getAttribute("date").toString())) {
+//                position = x;
+//            }
+          }
+      }
+
       if(position >= photos.size()) {
             position = 0;
       } else if(position < 0) {
