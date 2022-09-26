@@ -18,16 +18,11 @@ public class GalleryServlet extends HttpServlet {
       response.setContentType("text/html");
       response.setCharacterEncoding("UTF-8");
 
-//      File dir = new File("C:\\tomcat\\webapps\\3940-assignment1-group5\\images");
-//      System.out.println(dir);
-//      String[] chld = dir.list();
-
     // instead of hardcoding to the first image in the list as done below
     // save search criteria as session variable and use it to filter the files in the above array
     // check if prev or next button pressed and then rotate through the array accordingly
 
       ArrayList<String> photos = new ArrayList<>();
-      String filename ="";
       try {
           Class.forName("com.mysql.cj.jdbc.Driver");
       } catch (ClassNotFoundException e) {
@@ -44,18 +39,12 @@ public class GalleryServlet extends HttpServlet {
           while(rs.next()) {
                   photos.add(rs.getString("filename"));
           }
-          for (String photo : photos) {
-              System.out.println(photo);
-          }
+//          for (String photo : photos) {
+//              System.out.println(photo);
+//          }
       } catch (SQLException e) {
           e.printStackTrace();
       }
-//      String img_src;
-//      if(filename.equals("")) {
-//           img_src = chld[0];
-//      } else {
-//             img_src = filename;
-//      }
 
     String alt_text = "SOME IMAGE";
     PrintWriter out = response.getWriter();
@@ -67,17 +56,19 @@ public class GalleryServlet extends HttpServlet {
     out.println("<div>");
     out.println("<form action='/3940-assignment1-grp5/gallery' method='GET'>");
     out.println("<div>");
-    out.println("<img id = \"img_src\" src=./images/" + photos.get(0) + " alt=" + alt_text + " width=200 height=150>");
+    out.println("<img id = \"img_src\" src=./images/" + photos.get(0) + " alt=" + alt_text + " width=400 height=300>");
     out.println("<div>");
     out.println("<br>");
     out.println("<div class='button'>");
-    out.println("<button class='button' id='prev'>Prev</button>");
-    out.println("<button class='button' id='next'>Next</button>");
+    out.println("<form action=\"prev\" method=\"GET\"><input type=\"submit\" value=\"Prev\"></input></form>"
+            + "<form action=\"next\" method=\"GET\"><input type=\"submit\" value=\"Next\"></input></form>");
+    out.println();
+    out.println("<form action=\"delete\" method=\"GET\"><input type=\"submit\" value=\"Delete\"></input></form>");
     out.println("</div></div><br>");
     out.println("</form>");
     out.println("<div>");
     out.println("<form action='main' method='GET'>");
-    out.println("<button class='button' id='main'>Main</button>");
+    out.println("<input type=\"submit\" value=\"Return to Main\"></input>");
     out.println("</div><br>");
     out.println("</form>");
     out.println("</body></html>");
