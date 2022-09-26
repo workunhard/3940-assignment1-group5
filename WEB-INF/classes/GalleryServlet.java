@@ -23,6 +23,8 @@ public class GalleryServlet extends HttpServlet {
         }
 
       ArrayList<String> photos = new ArrayList<>();
+      ArrayList<String> captions = new ArrayList<>();
+      ArrayList<String> dates = new ArrayList<>();
       try {
           Class.forName("com.mysql.cj.jdbc.Driver");
       } catch (ClassNotFoundException e) {
@@ -38,6 +40,8 @@ public class GalleryServlet extends HttpServlet {
           ResultSet rs = searchDB.executeQuery("SELECT filename, caption, datetaken FROM photos WHERE UserID = " + session.getAttribute("id") + "");
           while(rs.next()) {
                   photos.add(rs.getString("filename"));
+                  captions.add(rs.getString("caption"));
+                  dates.add(rs.getString("datetaken"));
           }
 //          for (String photo : photos) {
 //              System.out.println(photo);
@@ -61,6 +65,8 @@ public class GalleryServlet extends HttpServlet {
     out.println("<div>");
     out.println("<div><form>");
     out.println("<img id = \"img_src\" src=./images/" + photos.get(position) + " alt=" + alt_text + " width=400 height=300>");
+    out.println("<p>" + captions.get(position) + "</p>");
+    out.println("<p>" + dates.get(position) + "</p>");
     out.println("<div></form>");
     out.println("<br>");
     out.println("<div class='button'>");
