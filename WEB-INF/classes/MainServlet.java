@@ -39,6 +39,10 @@ public class MainServlet extends HttpServlet {
 						"<form action=\"logout\" method=\"GET\">\n" + 
                     	"<input class=\"mainBtn\"type=\"submit\" value=\"LOGOUT\" />\n" +
                     	"</form>\n" +
+			  			"<div style=\"text-align: center;\">\n" +
+			  			"<form action=\"fileuploadconsole\" method=\"GET\">\n" +
+			  			"<input class=\"mainBtn\"type=\"submit\" value=\"UPLOAD-CONSOLE\" />\n" +
+			  			"</form>\n" +
 						"</div>\n" +  "</body></html>";
       PrintWriter out = response.getWriter();
       out.println(html);

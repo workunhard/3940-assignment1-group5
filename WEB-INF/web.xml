@@ -15,6 +15,26 @@
     <servlet-name>upload</servlet-name>
     <url-pattern>/upload</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>uploadConsole</servlet-name>
+    <servlet-class>UploadServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>uploadConsole</servlet-name>
+    <url-pattern>/uploadConsole</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>fileuploadconsole</servlet-name>
+    <servlet-class>FileUploadConsole</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>fileuploadconsole</servlet-name>
+    <url-pattern>/fileuploadconsole</url-pattern>
+  </servlet-mapping>
   
   <servlet>
     <servlet-name>login</servlet-name>
