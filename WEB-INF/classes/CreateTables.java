@@ -8,6 +8,22 @@ import java.util.UUID;
 
 public class CreateTables extends HttpServlet {
 
+// Two tables: 'users' and 'photos'
 
+    /*
+
+    Table 'users'
+    id = int AI PK
+    username = varchar(45)
+    password = varchar(45)
+
+    Table 'photos'
+    ID = int AI PK
+    UserID = int
+    filename = varchar(20)
+    caption = varchar(20)
+    datetaken = date
+
+     */
 
 }

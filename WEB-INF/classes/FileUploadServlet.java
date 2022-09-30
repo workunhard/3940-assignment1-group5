@@ -89,7 +89,7 @@ public class FileUploadServlet extends HttpServlet {
             final String URL = "jdbc:mysql://localhost:3306/test";
             HttpSession session = request.getSession(true);
             String username = session.getAttribute("id").toString();
-            Connection con = DriverManager.getConnection(URL, "root", "Popcorn");
+            Connection con = DriverManager.getConnection(URL, "root", "junkfoodnight");
             Statement addToDB = con.createStatement();
             addToDB.execute("INSERT INTO photos (ID, UserID, filename , caption, datetaken) VALUES (0, \'"
                     + username + "\', \'" + fileName + "\',\'" + captionName + "\',\'" + formDate + "\')");

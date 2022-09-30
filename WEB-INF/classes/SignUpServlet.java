@@ -34,7 +34,7 @@ public class SignUpServlet extends HttpServlet {
             final String URL = "jdbc:mysql://localhost:3306/test";
             String username = request.getParameter("user_name");
             String password = request.getParameter("password");
-            Connection con = DriverManager.getConnection(URL, "root", "Popcorn");
+            Connection con = DriverManager.getConnection(URL, "root", "junkfoodnight");
             Statement addToDB = con.createStatement();
             addToDB.execute("INSERT INTO users (id, username , password ) VALUES (0, \'"+ username + "\', \'"+ password +"\')");
 

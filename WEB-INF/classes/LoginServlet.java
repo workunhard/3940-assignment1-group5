@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 		final String URL = "jdbc:mysql://localhost:3306/test";
 		final Properties connectionProperties = new Properties();
 		connectionProperties.put("user", "root");
-		connectionProperties.put("password", "Popcorn");
+		connectionProperties.put("password", "junkfoodnight");
 // 		Jaws_DB connectivity if deploying with Heroku:
 //		final String URL = "jdbc:mysql://ceux8kf47jbi8xmk:x1sp0y8iza95oaiv@cwe1u6tjijexv3r6.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/t4ot5pmewuphycfy";
 //		final Properties connectionProperties = new Properties();
