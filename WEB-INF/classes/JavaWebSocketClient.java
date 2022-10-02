@@ -13,7 +13,7 @@
             WebSocket ws = HttpClient
                     .newHttpClient()
                     .newWebSocketBuilder()
-                    .buildAsync(URI.create("ws://localhost:8081/examples/websocket/chat"), new WebSocketClient(latch))
+                    .buildAsync(URI.create("ws://localhost:8081/3940-assignment1-group5/chat"), new WebSocketClient(latch))
                     .join();
             ws.sendText("Hello!", true);
             latch.await();
