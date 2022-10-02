@@ -3,12 +3,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 public class FileUploadConsole extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String dirList = getListing("C:\\tomcat\\webapps\\3940-assignment1-group5\\images");
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
@@ -39,9 +41,11 @@ public class FileUploadConsole extends HttpServlet {
             writer.append("</form>\r\n");
             writer.append("</body>\r\n").append("</html>\r\n");
         }
+
+        PrintWriter out = response.getWriter();
+        out.println(dirList);
+        out.flush();
     }
-
-
 
 
     private boolean isLoggedIn(HttpServletRequest req) {
@@ -53,5 +57,16 @@ public class FileUploadConsole extends HttpServlet {
             return true;
         }
 
+    }
+
+    private String getListing(String path){
+        String dirList = null;
+        File dir = new File(path);
+        String[] child = dir.list();
+        for(int i=0; i < child.length; i++){
+            dirList += "," + child[i];
+        }
+        System.out.println(dirList);
+        return dirList;
     }
 }
