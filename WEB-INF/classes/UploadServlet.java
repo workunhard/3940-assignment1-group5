@@ -27,8 +27,9 @@ public class UploadServlet extends HttpServlet {
         response.setContentType("text/plain");
         response.setContentLength(dirList.length());
         PrintWriter out = response.getWriter();
+
         out.println(dirList);	
-        out.flush();  
+//        out.flush();
     }    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +55,7 @@ public class UploadServlet extends HttpServlet {
             final String URL = "jdbc:mysql://localhost:3306/test";
             HttpSession session = request.getSession(true);
             String username = session.getAttribute("id").toString();
-            Connection con = DriverManager.getConnection(URL, "root", "Popcorn");
+            Connection con = DriverManager.getConnection(URL, "root", "junkfoodnight");
             Statement addToDB = con.createStatement();
             addToDB.execute("INSERT INTO photos (ID, UserID, filename , caption, datetaken) VALUES (0, \'"
                     + username + "\', \'" + fileName + "\',\'" + captionName + "\',\'" + formDate + "\')");
